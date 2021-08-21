@@ -1,4 +1,5 @@
 const { consultarCep } = require("correios-brasil");
+const { cancelButton } = require("../text");
 
 const consultaCep = async (ctx) => {
   const data = ctx.update.message.text.split(" ");
@@ -13,6 +14,7 @@ const consultaCep = async (ctx) => {
   ) {
     await ctx.reply("❌ Erro! Por favor, digite um cep válido!", {
       reply_to_message_id: ctx.message.message_id,
+      reply_markup: cancelButton,
     });
     return;
   }
@@ -21,9 +23,7 @@ const consultaCep = async (ctx) => {
     const result = await consultarCep(cepNumber);
 
     if (!result) {
-      await ctx.reply("❌ Erro! Cep não encontrado!", {
-        reply_to_message_id: ctx.message.message_id,
-      });
+      await ctx.reply("❌ Erro! Cep não encontrado!", cancelButton);
       return;
     }
 
@@ -35,12 +35,10 @@ CIDADE: ${result.localidade || "Não localizado"}
 BAIRRO: ${result.bairro || "Não localizado"}  
 LOGRADOURO: ${result.logradouro || "Não localizado"}  
 CEP: ${result.cep || "Não localizado"}`,
-      { reply_to_message_id: ctx.message.message_id }
+      cancelButton
     );
   } catch (error) {
-    await ctx.reply("❌ Erro! Cep não encontrado!", {
-      reply_to_message_id: ctx.message.message_id,
-    });
+    await ctx.reply("❌ Erro! Cep não encontrado!", cancelButton);
     return;
   }
 };

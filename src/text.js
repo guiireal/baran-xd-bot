@@ -1,7 +1,9 @@
-const menu = `
+const { Keyboard } = require("telegram-keyboard");
+
+const menu = (firstName) => `
 ━━━━━━━━❮◆❯━━━━━━━━
 ◆◇  
-◆◇ Olá "pega o nome"
+◆◇ Olá ${firstName}
 ◆◇ seja bem vindo(a) 
 ◆◇ ao menu de consultas
 ◆◇  
@@ -24,4 +26,6 @@ const menu = `
 ◆◇  
 ━━━━━━━━❮◆❯━━━━━━━━`;
 
-module.exports = { menu };
+const cancelButton = Keyboard.make([["✖ Cancelar"]]).inline();
+
+module.exports = { menu, cancelButton };

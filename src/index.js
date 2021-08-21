@@ -6,7 +6,7 @@ const { menu } = require("./text");
   const bot = new Telegraf("1822218649:AAHxYgX-D3U2awJICRZnXbomrtMTBqWUlXQ");
 
   bot.start(async (ctx) => {
-    await ctx.reply(menu);
+    await ctx.reply(menu(ctx.update.message.from.first_name));
   });
 
   bot.command(["/cep", "/Cep", "/CEP"], async (ctx) => {
